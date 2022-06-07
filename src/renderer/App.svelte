@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Nav from './components/nav.svelte';
 	import Sidebar from './components/sidebar.svelte';
-	let sidebarController;
+	let sidebarController : any;
 	
-	let index = 0;
+	let index : number = 0;
 	let notes = [
 	  {name:"note1", content: "Hey this is the first note"},
 	  {name:"note2", content: "Hey this is the second note"},
@@ -17,7 +17,7 @@
 	  return now.getDate() + "." + (now.getMonth()+1) + "." + now.getFullYear() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 	}
   
-	function handleNote(e) {
+	function handleNote(e : Event) {
 	  index = e.detail.n;
 	}
   

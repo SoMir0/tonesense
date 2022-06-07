@@ -1,11 +1,11 @@
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   
-  let index = 0;
+  let index : number = 0;
 
   const dispatch = createEventDispatcher();
 
-  function changeNote(i) {
+  function changeNote(i : number) {
     dispatch('change', {
       n: i
     });
@@ -16,7 +16,7 @@
     if(index==0) changeNote(0);
     else changeNote(index-1);
   };
-  export let note;
+  export let note : Array<object>;
 </script>
 
 <aside>
@@ -41,7 +41,7 @@
 
   aside button {
     outline: none; border: none;
-    font-weigh: bold;
+    font-weight: bold;
     padding: 1rem;
     margin: 0;
     color: #111;
