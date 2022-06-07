@@ -28,6 +28,7 @@
 		"esbuild": "^0.12.6",
 		"prettier": "^2.3.0",
 		"svelte": "^3.38.2",
+		"svelte-bootstrap-icons": "^1.8.2",
 		"svelte-preprocess": "^4.7.3",
 		"ts-node": "^10.0.0",
 		"tslib": "^2.2.0",

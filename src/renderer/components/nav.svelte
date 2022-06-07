@@ -1,0 +1,39 @@
+<script lang="ts">
+  import { createEventDispatcher } from 'svelte';
+  
+  import PlusCircle from "svelte-bootstrap-icons/lib/PlusCircle";
+  import Trash from "svelte-bootstrap-icons/lib/Trash";
+  import Wrench from "svelte-bootstrap-icons/lib/Wrench";
+  import CurrencyDollar from "svelte-bootstrap-icons/lib/CurrencyDollar";
+
+  const dispatch = createEventDispatcher();
+  
+  function addNote() {
+    dispatch('add');
+  }
+
+  function deleteNote() {
+    dispatch('delete');
+  }
+</script>
+
+<nav>
+  <button on:click={addNote}><PlusCircle width={18} height={18} /></button>
+  <button on:click={deleteNote}><Trash width={18} height={18} /></button>
+  <button><Wrench width={18} height={18} /></button>
+  <button><CurrencyDollar width={18} height={18} /></button>
+</nav>
+
+<style>
+  nav {
+    display: flex; justify-content: space-evenly; align-items: center;
+    background: #dfdfdf; height: 100%;
+  }
+
+  nav button {
+    outline: none; border: none; background: #0000;
+    cursor: pointer;
+    width: 100%; height: 100%;
+    padding: 1rem;
+  }
+</style>

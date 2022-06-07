@@ -1,69 +1,108 @@
 <script lang="ts">
-	import logo from "./assets/svelte.png";
-	import Counter from "@lib/Counter.svelte";
-	import { sum } from "@common/util";
-	const a = Math.round(Math.random() * 10);
-	const b = Math.round(Math.random() * 10);
-
-</script>
-
-<main>
-	<img src={logo} alt="Svelte Logo" />
-	<h1>Hello Typescript!</h1>
-
-	<Counter />
-
-	<p>
-		Visit <a href="https://svelte.dev">svelte.dev</a> to learn how to build Svelte
-		apps.
-	</p>
-
-	<p>
-		This function is running from common: {a} + {b} = {sum(a, b)}
-	</p>
-</main>
-
-<style>
-	:root {
-		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-			Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+	import Nav from './components/nav.svelte';
+	import Sidebar from './components/sidebar.svelte';
+	let sidebarController;
+	
+	let index = 0;
+	let notes = [
+	  {name:"note1", content: "Hey this is the first note"},
+	  {name:"note2", content: "Hey this is the second note"},
+	  {name:"test note", content: "25 all"},
+	  {name:"Game", content: "Detroit: Become Human"},
+	  {name:"Song", content: "Anything by M.O.O.N really"},
+	].reverse();
+  
+	const getFormattedTime = () => {
+	  let now = new Date();
+	  return now.getDate() + "." + (now.getMonth()+1) + "." + now.getFullYear() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
 	}
-
+  
+	function handleNote(e) {
+	  index = e.detail.n;
+	}
+  
+	function handleAdd() {
+	  notes.push({name:getFormattedTime(), content:"test text"});
+	  notes = notes;
+	}
+  
+	function handleDelete() {
+	  notes.splice(index, 1);
+	  notes = notes;
+	  sidebarController();
+	}
+  </script>
+  
+  <main>
+	<div class="nav">
+	  <Nav on:delete={handleDelete} on:add={handleAdd} />
+	</div>
+	<div class="side">
+	  <Sidebar note={notes} on:change={handleNote} bind:resetSelect={sidebarController} />
+	</div>
+	{#if notes[index] != null}
+	<textarea class="text" bind:value={notes[index].content}></textarea>
+	{:else}
+	<p>No notes to show!</p>
+	{/if}
+  </main>
+  
+  <style>
+	:global(html), :global(body) {
+	  height: 100%; width: 100%;
+	  margin: 0; padding: 0;
+	  font-family: sans-serif;
+	}
+  
 	main {
-		text-align: center;
-		padding: 1em;
-		margin: 0 auto;
+	  height: 100vh;
+	  display: grid;
+	  grid-template-areas:
+	  "nav nav nav"
+	  "side text text"
+	  "side text text";
+	  grid-template-rows: 0.2fr 1fr 1fr;
+	  grid-template-columns: 0.45fr 1fr 1fr;
 	}
-
-	img {
-		height: 16rem;
-		width: 16rem;
+  
+	main p {
+	  position: relative; left: 50%; top: 50%;
+	  user-select: none;
+	  color: gray;
+	  text-align:center;
 	}
-
-	h1 {
-		color: #ff3e00;
-		text-transform: uppercase;
-		font-size: 4rem;
-		font-weight: 100;
-		line-height: 1.1;
-		margin: 2rem auto;
-		max-width: 14rem;
+  
+	.nav {
+	  grid-area: nav;
 	}
-
-	p {
-		max-width: 14rem;
-		margin: 1rem auto;
-		line-height: 1.35;
+  
+	.side {
+	  grid-area: side;
 	}
-
-	@media (min-width: 480px) {
-		h1 {
-			max-width: none;
-		}
-
-		p {
-			max-width: none;
-		}
+  
+	.text {
+	  grid-area: text;
 	}
-
-</style>
+  
+	textarea {
+	  resize: none;
+	  outline: none; border: none;
+	  background: #fff;
+	}
+  
+	@media only screen and (max-width: 600px) {
+	  main {
+		grid-template-areas: 
+		  "nav"
+		  "side"
+		  "text";
+		grid-template-rows: 0.1fr 0.1fr 1fr;
+		grid-template-columns: 1fr;
+	  }
+	  
+	  .side {
+		max-height: 15vh;
+	  }
+	}
+  </style>
+  
