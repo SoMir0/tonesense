@@ -9,6 +9,7 @@ function createWindow() {
 	const win = new BrowserWindow({
 		width: 1280,
 		height: 720,
+		icon: __dirname + '/favicon.ico',
 		webPreferences: {
 			nodeIntegration: false,
 			// contextIsolation: false, // protect against prototype pollution
