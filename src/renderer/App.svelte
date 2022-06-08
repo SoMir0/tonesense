@@ -62,7 +62,7 @@
 	  "side text text"
 	  "side text text";
 	  grid-template-rows: 0.2fr 1fr 1fr;
-	  grid-template-columns: 0.45fr 1fr 1fr;
+	  grid-template-columns: 10rem 1fr 1fr;
 	}
   
 	main p {

@@ -29,7 +29,7 @@ function createWindow() {
 			pathToFileURL(path.join(__dirname, "./renderer/index.html")).toString()
 		);
 	}
-	win.removeMenu();
+	if (!isDevelopment) win.removeMenu();
 
 	appIpcMain(win);
 

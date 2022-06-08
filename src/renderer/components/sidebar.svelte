@@ -41,11 +41,12 @@
 
   aside button {
     outline: none; border: none;
-    font-weight: bold;
     padding: 1rem;
+    font-size: 1rem;
     margin: 0;
     color: #111;
     background: #eee;
+    cursor: pointer;
   }
 
   aside button:hover, aside .selected {
