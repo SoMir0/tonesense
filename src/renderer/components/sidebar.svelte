@@ -29,7 +29,7 @@
 
 <style>
   aside {
-    background: #eee;
+    background: var(--gray-light);
     height: 100%;
     display: flex; flex-direction: column;
     overflow-y: scroll;
@@ -44,12 +44,12 @@
     padding: 1rem;
     font-size: 1rem;
     margin: 0;
-    color: #111;
-    background: #eee;
+    color: var(--black);
+    background: var(--gray-light);
     cursor: pointer;
   }
 
   aside button:hover, aside .selected {
-    background: #fff;
+    background: var(--white);
   }
 </style>

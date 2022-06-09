@@ -1,4 +1,11 @@
 <script lang="ts">
+	let userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+	function toggle() {
+    userPrefersDark = !userPrefersDark;
+    window.document.body.classList.toggle('dark');
+  }
+
 	import Nav from './components/nav.svelte';
 	import Sidebar from './components/sidebar.svelte';
 	let sidebarController : any;
@@ -35,7 +42,7 @@
   
   <main>
 	<div class="nav">
-	  <Nav on:delete={handleDelete} on:add={handleAdd} />
+	  <Nav darkTheme={userPrefersDark} on:delete={handleDelete} on:add={handleAdd} on:toggle={toggle} />
 	</div>
 	<div class="side">
 	  <Sidebar note={notes} on:change={handleNote} bind:resetSelect={sidebarController} />
@@ -53,6 +60,14 @@
 	  margin: 0; padding: 0;
 	  font-family: sans-serif;
 	}
+
+	:root {
+		--white: #fff;
+		--gray: #808080;
+		--gray-light: #eee;
+		--gray-dark: #dfdfdf;
+		--black: #111;
+	}
   
 	main {
 	  height: 100vh;
@@ -63,12 +78,13 @@
 	  "side text text";
 	  grid-template-rows: 0.2fr 1fr 1fr;
 	  grid-template-columns: 10rem 1fr 1fr;
+	  background: var(--white);
 	}
   
 	main p {
 	  position: relative; left: 50%; top: 50%;
 	  user-select: none;
-	  color: gray;
+	  color: var(--gray);
 	  text-align:center;
 	}
   
@@ -87,22 +103,31 @@
 	textarea {
 	  resize: none;
 	  outline: none; border: none;
-	  background: #fff;
+	  background: var(--white);
+		color: var(--black);
 	}
   
 	@media only screen and (max-width: 600px) {
 	  main {
-		grid-template-areas: 
-		  "nav"
-		  "side"
-		  "text";
-		grid-template-rows: 0.1fr 0.1fr 1fr;
-		grid-template-columns: 1fr;
+			grid-template-areas: 
+		  	"nav"
+		  	"side"
+		  	"text";
+			grid-template-rows: 0.1fr 0.1fr 1fr;
+			grid-template-columns: 1fr;
 	  }
 	  
 	  .side {
-		max-height: 15vh;
+			max-height: 15vh;
 	  }
+	}
+
+	:global(body.dark) {
+		--white: #111;
+		--gray: #808080;
+		--gray-light: #323232;
+		--gray-dark: #222;
+		--black: #eee;
 	}
   </style>
   
