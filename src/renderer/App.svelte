@@ -1,13 +1,11 @@
 <script lang="ts">
-	let userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-	function toggle() {
-    userPrefersDark = !userPrefersDark;
-    window.document.body.classList.toggle('dark');
-  }
-
+	// imports
 	import Nav from './components/nav.svelte';
 	import Sidebar from './components/sidebar.svelte';
+
+	// definitions
+	let userPrefersDark : boolean = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+	
 	let sidebarController : any;
 	
 	let index : number = 0;
@@ -18,10 +16,17 @@
 	  {name:"Game", content: "Detroit: Become Human"},
 	  {name:"Song", content: "Anything by M.O.O.N really"},
 	].reverse();
-  
+
+	// functions
+	if(userPrefersDark && !window.document.body.classList.contains('dark')) window.document.body.classList.toggle('dark');
+	function toggle() {
+    userPrefersDark = !userPrefersDark;
+    window.document.body.classList.toggle('dark');
+  }
+
 	const getFormattedTime = () => {
 	  let now = new Date();
-	  return now.getDate() + "." + (now.getMonth()+1) + "." + now.getFullYear() + " " + now.getHours() + ":" + now.getMinutes() + ":" + now.getSeconds();
+	  return now.getDate() + "." + (now.getMonth()+1) + "." + now.getFullYear() + "\n" + "note" + (notes.length+1).toString();
 	}
   
 	function handleNote(e : Event) {
