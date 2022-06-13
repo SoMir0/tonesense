@@ -16,6 +16,9 @@
 	  {name:"Game", content: "Detroit: Become Human"},
 	  {name:"Song", content: "Anything by M.O.O.N really"},
 	].reverse();
+	
+	let menuSize = 0;
+	$: cssVarStyles = `--menu-size:${menuSize}`;
 
 	// functions
 	if(userPrefersDark && !window.document.body.classList.contains('dark')) window.document.body.classList.toggle('dark');
@@ -43,11 +46,15 @@
 	  notes = notes;
 	  sidebarController();
 	}
+
+	function handleMenu() {
+		menuSize = (menuSize == 0) ? 1 : 0;
+	}
   </script>
   
-  <main>
+  <main style="{cssVarStyles}">
 	<div class="nav">
-	  <Nav darkTheme={userPrefersDark} on:delete={handleDelete} on:add={handleAdd} on:toggle={toggle} />
+	  <Nav darkTheme={userPrefersDark} on:delete={handleDelete} on:add={handleAdd} on:toggle={toggle} on:menu={handleMenu} />
 	</div>
 	<div class="side">
 	  <Sidebar note={notes} on:change={handleNote} bind:resetSelect={sidebarController} />
@@ -57,6 +64,11 @@
 	{:else}
 	<p>No notes to show!</p>
 	{/if}
+	<div class="config">
+		<input type="checkbox"/>
+		<label for="checkbox">Autosave</label>
+		<button>clickyyy</button>
+	</div>
   </main>
   
   <style>
@@ -103,6 +115,19 @@
   
 	.text {
 	  grid-area: text;
+	}
+
+	.config {
+		display: flex; flex-direction: column; align-items: center;
+		position: absolute;
+		top: 4rem;
+		right: 2rem;
+		padding: 1rem;
+		gap: 1rem;
+		border-radius: 0.125rem;
+		background: var(--gray-light);
+		transform: scale(var(--menu-size));
+		transition: transform 0.3s;
 	}
   
 	textarea {

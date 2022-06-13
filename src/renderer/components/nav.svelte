@@ -21,6 +21,10 @@
     dispatch('toggle');
   }
 
+  function enableMenu() {
+    dispatch('menu');
+  }
+
   export let darkTheme;
 </script>
 
@@ -34,7 +38,7 @@
       <Moon width={18} height={18} />
     {/if}
   </button>
-  <button><Wrench width={18} height={18} /></button>
+  <button on:click={enableMenu}><Wrench width={18} height={18} /></button>
 </nav>
 
 <style>
