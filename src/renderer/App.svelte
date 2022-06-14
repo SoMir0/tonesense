@@ -65,8 +65,10 @@
 	<p>No notes to show!</p>
 	{/if}
 	<div class="config">
-		<input type="checkbox"/>
-		<label for="checkbox">Autosave</label>
+		<div>
+			<input id="check" type="checkbox"/>
+			<label for="check">Autosave</label>
+		</div>
 		<button>clickyyy</button>
 	</div>
   </main>
@@ -93,9 +95,14 @@
 	  "nav nav nav"
 	  "side text text"
 	  "side text text";
-	  grid-template-rows: 0.2fr 1fr 1fr;
+	  grid-template-rows: 4rem 1fr 1fr;
 	  grid-template-columns: 10rem 1fr 1fr;
 	  background: var(--white);
+	}
+
+	label {
+		user-select: none;
+		color: var(--black);
 	}
   
 	main p {
@@ -120,14 +127,14 @@
 	.config {
 		display: flex; flex-direction: column; align-items: center;
 		position: absolute;
-		top: 4rem;
-		right: 2rem;
+		top: 9vh;
+		right: 5vw;
 		padding: 1rem;
 		gap: 1rem;
 		border-radius: 0.125rem;
 		background: var(--gray-light);
 		transform: scale(var(--menu-size));
-		transition: transform 0.3s;
+		transition: transform 0.2s ease;
 	}
   
 	textarea {
@@ -143,7 +150,7 @@
 		  	"nav"
 		  	"side"
 		  	"text";
-			grid-template-rows: 0.1fr 0.1fr 1fr;
+			grid-template-rows: 4rem 0.1fr 1fr;
 			grid-template-columns: 1fr;
 	  }
 	  
