@@ -18,7 +18,8 @@
 	].reverse();
 	
 	let menuSize = 0;
-	$: cssVarStyles = `--menu-size:${menuSize}`;
+	let coverDisplay = "none";
+	$: cssVarStyles = `--menu-size:${menuSize}; --cover-display:${coverDisplay}`;
 
 	// functions
 	if(userPrefersDark && !window.document.body.classList.contains('dark')) window.document.body.classList.toggle('dark');
@@ -48,7 +49,13 @@
 	}
 
 	function handleMenu() {
-		menuSize = (menuSize == 0) ? 1 : 0;
+		menuSize = 1;
+		coverDisplay = "block";
+	}
+
+	function handleCover() {
+		coverDisplay = "none";
+		menuSize = 0;
 	}
   </script>
   
@@ -64,6 +71,7 @@
 	{:else}
 	<p>No notes to show!</p>
 	{/if}
+	<div class="cover" on:click={handleCover}></div>
 	<div class="config">
 		<div>
 			<input id="check" type="checkbox"/>
@@ -135,6 +143,15 @@
 		background: var(--gray-light);
 		transform: scale(var(--menu-size));
 		transition: transform 0.2s ease;
+	}
+
+	.cover {
+		display: var(--cover-display);
+		position: absolute;
+		background-color: black;
+		width: 100vw; height: 100vh; top: 0; left: 0;
+		overflow: hidden;
+		filter: opacity(0.5);
 	}
   
 	textarea {
